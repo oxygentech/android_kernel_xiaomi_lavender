@@ -7,3 +7,4 @@ jobs:
       - checkout
       - run: wget https://github.com/oxygenfox/build_docker/raw/master/build_docker.sh
       - run: bash build_docker.sh
+      
