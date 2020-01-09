@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: rama982/dokar:latest
+      - image: oxygentech/build_docker:latest
     steps:
       - checkout
-      - run: wget https://github.com/rama982/scripts/raw/master/build_on_docker.sh
-      - run: bash build_on_docker.sh
+      - run: wget https://github.com/oxygenfox/build_docker/raw/master/build_docker.sh
+      - run: bash build_docker.sh
