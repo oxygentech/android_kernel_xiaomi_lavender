@@ -1,10 +1,4 @@
-/*
- * Copyright 2005, Red Hat, Inc., Ingo Molnar
- * Released under the General Public License (GPL).
- *
- * This file contains the spinlock/rwlock implementations for
- * DEBUG_SPINLOCK.
- */
+/* * Copyright 2005, Red Hat, Inc., Ingo Molnar * Released under the General Public License (GPL). * * This file contains the spinlock/rwlock implementations for * DEBUG_SPINLOCK. */
 
 #include <linux/spinlock.h>
 #include <linux/nmi.h>
@@ -66,6 +60,11 @@ static void spin_dump(raw_spinlock_t *lock, const char *msg)
 		owner ? owner->comm : "<none>",
 		owner ? task_pid_nr(owner) : -1,
 		READ_ONCE(lock->owner_cpu));
+#ifdef CONFIG_DEBUG_SPINLOCK_BITE_ON_BUG
+	msm_trigger_wdog_bite();
+#elif defined(CONFIG_DEBUG_SPINLOCK_PANIC_ON_BUG)
+	BUG();
+#endif
 	dump_stack();
 }
 
